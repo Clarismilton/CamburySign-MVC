@@ -1,0 +1,131 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:decorate xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/template/template.xhtml">
+
+	<h:form id="cad_grupo">
+
+		<p:growl id="growl" showDetail="true" sticky="false" life="5000" />
+			
+		<p:panel header="Cadastro Grupos Participantes de Eventos">
+			
+			<h:panelGrid columns="4" layout="grid">
+
+				<p:outputLabel value="Nome do Grupo " />
+				<p:inputText value="#{GrupoMB.bean.nome}" size="30" />
+				
+				<p:outputLabel value="Gerente de Projetos " />
+				<p:inputText value="#{GrupoMB.bean.gerente}" size="30" />
+
+				<p:outputLabel value="Stand" />
+				<p:selectOneMenu value="#{GrupoMB.bean.stand}">
+					<f:selectItem itemLabel="01 - 2x2" itemValue="01 - 2x2" />
+					<f:selectItem itemLabel="02 - 2x4" itemValue="02 - 2x4" />
+					<f:selectItem itemLabel="03 - 4x4" itemValue="03 - 4x4" />
+				</p:selectOneMenu>
+
+				<h:outputText value="Pgto Stand " />
+        		<p:selectBooleanButton id="value1" value="#{GrupoMB.bean.stand_pago}" onLabel="Yes" offLabel="No" style="width:60px" />
+
+				<p:outputLabel value="Período Acadêmico" />
+				<p:selectOneMenu value="#{GrupoMB.bean.periodo}">
+					<f:selectItem itemLabel="01" itemValue="01" />
+					<f:selectItem itemLabel="02" itemValue="02" />
+					<f:selectItem itemLabel="03" itemValue="03" />
+					<f:selectItem itemLabel="04" itemValue="04" />
+					<f:selectItem itemLabel="05" itemValue="05" />
+					<f:selectItem itemLabel="06" itemValue="06" />
+					<f:selectItem itemLabel="07" itemValue="07" />
+					<f:selectItem itemLabel="08" itemValue="08" />
+					<f:selectItem itemLabel="09" itemValue="09" />
+					<f:selectItem itemLabel="10" itemValue="10" />
+					<f:selectItem itemLabel="11" itemValue="11" />
+					<f:selectItem itemLabel="12" itemValue="12" />
+				</p:selectOneMenu>
+				
+				<p:outputLabel value="Pré Projeto " />
+				<p:inputText value="#{GrupoMB.bean.pre_projeto}" size="30" />
+
+				<p:outputLabel value="Projeto Final " />
+				<p:inputText value="#{GrupoMB.bean.projeto_final}" size="30" />
+
+				<p:outputLabel value="Tipo PCA" />
+				<p:selectOneMenu value="#{GrupoMB.bean.tipo_pca}">
+					<f:selectItem itemLabel="01 - Pática Cambury" itemValue="01 - Pática Cambury" />
+					<f:selectItem itemLabel="02 - Feira Gastronômica" itemValue="02 - Feira Gastronômica" />
+				</p:selectOneMenu>
+				
+				<p:outputLabel value="Empresa" />
+				<p:selectOneMenu value="#{GrupoMB.bean.id_empresa}">
+					<f:selectItem itemLabel="01 - Faculdade Cambury" itemValue="01" />
+					<f:selectItem itemLabel="02 - World Security" itemValue="02" />
+					<f:selectItem itemLabel="03 - Hiper Moreira" itemValue="03" />
+				</p:selectOneMenu>
+
+				<p:outputLabel value="Curso" />
+				<p:selectOneMenu value="#{GrupoMB.bean.id_curso}">
+					<f:selectItem itemLabel="01 - Gestão de TI" itemValue="01" />
+					<f:selectItem itemLabel="02 - Gastronomia" itemValue="02" />
+					<f:selectItem itemLabel="03 - Estética e Cosmética" itemValue="03" />
+				</p:selectOneMenu>
+
+				<p:outputLabel value="Professor - Orientador" />
+				<p:selectOneMenu value="#{GrupoMB.bean.id_professor}">
+					<f:selectItem itemLabel="01 - Adriana Vettorazzo" itemValue="01" />
+					<f:selectItem itemLabel="02 - Arthur Mariano" itemValue="02" />
+					<f:selectItem itemLabel="03 - Leonardo Henrique" itemValue="03" />
+				</p:selectOneMenu>
+
+				<p:outputLabel value="Concurso" />
+				<p:selectOneMenu value="#{GrupoMB.bean.id_concurso}">
+					<f:selectItem itemLabel="01 - 2017/01" itemValue="01" />
+					<f:selectItem itemLabel="02 - 2017/02" itemValue="02" />
+				</p:selectOneMenu>
+				
+			</h:panelGrid>
+
+			<h:panelGrid columns="4" layout="grid">
+
+				<p:commandButton value="Cadastrar"
+					rendered="#{!GrupoMB.exibirBtnAlterar}" action="#{GrupoMB.gravar}"
+					update="cad_grupo" />
+
+				<p:commandButton value="Salvar"
+					rendered="#{GrupoMB.exibirBtnAlterar}"
+					action="#{GrupoMB.atualizar}" update="cad_grupo" />
+
+				<p:commandButton value="Excluir"
+					rendered="#{GrupoMB.exibirBtnAlterar}" action="#{GrupoMB.excluir}"
+					update="cad_grupo" />
+
+				<p:commandButton value="Cancelar"
+					rendered="#{GrupoMB.exibirBtnAlterar}" action="#{GrupoMB.cancelar}"
+					update="cad_grupo" />
+
+			</h:panelGrid>
+
+			<p:dataTable var="c" value="#{GrupoMB.list}" selectionMode="single"
+				selection="#{GrupoMB.alterar}" rowKey="#{c.id}">
+
+				<p:ajax event="rowSelect" listener="#{GrupoMB.preparaUpdate}"
+					update="cad_grupo" />
+
+				<p:column style="width:50px" headerText="Nome do Grupo">#{c.nome}</p:column>
+				<p:column style="width:50px" headerText="Gerente de Projeto">#{c.gerente}</p:column>
+				<p:column style="width:10px" headerText="Stand">#{c.stand}</p:column>
+				<p:column style="width:05px" headerText="Pgto Stand">#{c.stand_pago}</p:column>
+				<p:column style="width:50px" headerText="Pré Projeto">#{c.pre_projeto}</p:column>
+				<p:column style="width:50px" headerText="Projeto Final">#{c.projeto_final}</p:column>
+				<p:column style="width:50px" headerText="Tipo PCA">#{c.tipo_pca}</p:column>
+
+			</p:dataTable>
+
+		</p:panel>
+
+	</h:form>
+</ui:decorate>

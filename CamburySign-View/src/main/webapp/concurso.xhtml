@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:decorate xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/template/template.xhtml">
+
+<h:form id="cad_concurso">
+	    <p:growl id="growl" showDetail="true" sticky="false" life="5000" />  
+	
+		<p:panel header="Cadastro de Concursos">
+			<h:panelGrid columns="2">
+				<p:outputLabel value="Ano Semestre" />
+				<p:inputText value="#{ConcursoMB.bean.anosemestre}" />
+
+				<p:outputLabel value="Evento" />
+				<p:inputText  value="#{ConcursoMB.bean.evento}" />
+
+			</h:panelGrid>
+
+			<h:panelGrid columns="4">
+
+				<p:commandButton value="Cadastrar" rendered="#{!ConcursoMB.exibirBtnAlterar}" action="#{ConcursoMB.gravar}"
+					update="cad_concurso" />
+
+				<p:commandButton value="Salvar" rendered="#{ConcursoMB.exibirBtnAlterar}" action="#{ConcursoMB.atualizar}"
+					update="cad_concurso" />
+
+				<p:commandButton value="Excluir" rendered="#{ConcursoMB.exibirBtnAlterar}" action="#{ConcursoMB.excluir}"
+					update="cad_concurso" />
+
+				<p:commandButton value="Cancelar" rendered="#{ConcursoMB.exibirBtnAlterar}" action="#{ConcursoMB.cancelar}"
+					update="cad_concurso" />
+
+			</h:panelGrid>
+			<p:dataTable var="c" value="#{ConcursoMB.list}" selectionMode="single"
+				selection="#{ConcursoMB.alterar}" rowKey="#{c.id}">
+
+				<p:ajax event="rowSelect" listener="#{ConcursoMB.preparaUpdate}"
+					update="cad_concurso" />
+
+				<p:column style="width:10px" headerText="Ano Semestre">#{c.anosemestre}</p:column>
+				<p:column style="width:50px" headerText="Evento">#{c.evento}</p:column>
+			</p:dataTable>
+		</p:panel>
+
+	</h:form>
+</ui:decorate>

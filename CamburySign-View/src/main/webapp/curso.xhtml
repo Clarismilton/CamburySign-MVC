@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:decorate xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/template/template.xhtml">
+
+	<h:form id="cad_curso">
+
+		<p:growl id="growl" showDetail="true" sticky="false" life="5000" />
+
+		<p:panel header="Cadastro de Cursos">
+
+			<h:panelGrid columns="2">
+
+				<p:outputLabel value="Nome" />
+				<p:inputText value="#{CursoMB.bean.nome}" />
+							
+				<p:outputLabel value="Chefe" />
+				<p:selectOneMenu value="#{CursoMB.bean.chefe}">
+					<f:selectItem itemLabel="Clarismilton" itemValue="Clarismilton" />
+					<f:selectItem itemLabel="Greyco" itemValue="Greyco" />
+					<f:selectItem itemLabel="José Moura" itemValue="José Moura" />
+				</p:selectOneMenu>
+
+			</h:panelGrid>
+
+			<h:panelGrid columns="4">
+
+				<p:commandButton value="Cadastrar"
+					rendered="#{!CursoMB.exibirBtnAlterar}" action="#{CursoMB.gravar}"
+					update="cad_curso" />
+
+				<p:commandButton value="Salvar"
+					rendered="#{CursoMB.exibirBtnAlterar}"
+					action="#{CursoMB.atualizar}" update="cad_curso" />
+
+				<p:commandButton value="Excluir"
+					rendered="#{CursoMB.exibirBtnAlterar}" action="#{CursoMB.excluir}"
+					update="cad_curso" />
+
+				<p:commandButton value="Cancelar"
+					rendered="#{CursoMB.exibirBtnAlterar}" action="#{CursoMB.cancelar}"
+					update="cad_curso" />
+
+			</h:panelGrid>
+
+			<p:dataTable var="c" value="#{CursoMB.list}" selectionMode="single"
+				selection="#{CursoMB.alterar}" rowKey="#{c.id}">
+
+				<p:ajax event="rowSelect" listener="#{CursoMB.preparaUpdate}"
+					update="cad_curso" />
+
+				<p:column headerText="Nome">#{c.nome}</p:column>
+				<p:column headerText="Chefe">#{c.chefe}</p:column>
+
+			</p:dataTable>
+
+		</p:panel>
+
+	</h:form>
+</ui:decorate>

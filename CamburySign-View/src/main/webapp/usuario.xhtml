@@ -1,0 +1,77 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:decorate xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/template/template.xhtml">
+
+	<h:form id="cad_usuario">
+
+		<p:growl id="growl" showDetail="true" sticky="false" life="5000" />
+
+		<p:panel header="Cadastro de Usuários">
+
+			<h:panelGrid columns="2">
+
+				<p:outputLabel value="Nome " />
+				<p:inputText value="#{UsuarioMB.bean.nome}" size="30" />
+
+				<p:outputLabel value="Nascimento " />
+				<p:calendar id="german" value="#{UsuarioMB.bean.nascimento}" size="10" locale="de" navigator="true" pattern="dd/MM/yyyy" yearRange="c-50:c+10" />
+
+				<p:outputLabel value="Profissão " />
+				<p:inputText value="#{UsuarioMB.bean.profissao}" size="30" />
+
+        		<p:outputLabel value="Telefone Fixo " />
+        		<p:inputMask id="phone" value="#{UsuarioMB.bean.telefone1}" size="11" mask="(99) 9999-9999"/>
+
+				<p:outputLabel value="Telefone Celular " />
+				<p:inputMask id="phone2" value="#{UsuarioMB.bean.telefone2}" size="11" mask="(99) 99999-9999"/>
+
+				<p:outputLabel value="E-Mail " />
+				<p:inputText value="#{UsuarioMB.bean.email}" size="30"/>
+
+			</h:panelGrid>
+
+			<h:panelGrid columns="4">
+
+				<p:commandButton value="Cadastrar"
+					rendered="#{!UsuarioMB.exibirBtnAlterar}" action="#{UsuarioMB.gravar}"
+					update="cad_usuario" />
+
+				<p:commandButton value="Salvar"
+					rendered="#{UsuarioMB.exibirBtnAlterar}"
+					action="#{UsuarioMB.atualizar}" update="cad_usuario" />
+
+				<p:commandButton value="Excluir"
+					rendered="#{UsuarioMB.exibirBtnAlterar}" action="#{UsuarioMB.excluir}"
+					update="cad_usuario" />
+
+				<p:commandButton value="Cancelar"
+					rendered="#{UsuarioMB.exibirBtnAlterar}" action="#{UsuarioMB.cancelar}"
+					update="cad_usuario" />
+
+			</h:panelGrid>
+
+			<p:dataTable var="c" value="#{UsuarioMB.list}" selectionMode="single"
+				selection="#{UsuarioMB.alterar}" rowKey="#{c.id}">
+
+				<p:ajax event="rowSelect" listener="#{UsuarioMB.preparaUpdate}"
+					update="cad_usuario" />
+
+				<p:column style="width:50px" headerText="Nome">#{c.nome}</p:column>
+				<p:column style="width:50px" headerText="Nascimento">#{c.nascimento}</p:column>
+				<p:column style="width:50px" headerText="Profissão">#{c.profissao}</p:column>
+				<p:column style="width:50px" headerText="Telefone 1">#{c.telefone1}</p:column>
+				<p:column style="width:50px" headerText="Telefone 2">#{c.telefone2}</p:column>
+				<p:column style="width:50px" headerText="E-Mail">#{c.email}</p:column>
+
+			</p:dataTable>
+
+		</p:panel>
+
+	</h:form>
+</ui:decorate>
