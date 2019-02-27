@@ -1,0 +1,126 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:decorate xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/template/template.xhtml">
+
+	<h:form id="cad_empresa">
+
+		<p:growl id="growl" showDetail="true" sticky="false" life="5000" />
+			
+		<p:panel header="Cadastro Empresa Parceira da Faculdade Cambury">
+			
+			<h:panelGrid columns="4" layout="grid">
+
+				<p:outputLabel value="Nome Fantasia " />
+				<p:inputText value="#{EmpresaMB.bean.fantasia}" size="30" />
+				
+				<p:outputLabel value="Razão Social " />
+				<p:inputText value="#{EmpresaMB.bean.razao_social}" size="30" />
+
+				<p:outputLabel value="CNPJ " />
+				<p:inputMask id="phone1" value="#{EmpresaMB.bean.cnpj}" size="20" mask="99.999.999/9999-99"/>
+
+				<p:outputLabel value="Contato 01 " />
+				<p:inputText value="#{EmpresaMB.bean.contato1}" size="30" />
+
+				<p:outputLabel value="Contato 02 " />
+				<p:inputText value="#{EmpresaMB.bean.contato2}" size="30" />
+
+        		<p:outputLabel value="Telefone Fixo " />
+        		<p:inputMask id="phone2" value="#{EmpresaMB.bean.telefone1}" size="11" mask="(99) 9999-9999"/>
+
+				<p:outputLabel value="Telefone Celular " />
+				<p:inputMask id="phone3" value="#{EmpresaMB.bean.telefone2}" size="11" mask="(99) 99999-9999"/>
+				
+				<p:outputLabel value="E-Mail " />
+				<p:inputText value="#{EmpresaMB.bean.email}" size="30"/>
+				
+				<p:outputLabel value="Rua " />
+				<p:inputText value="#{EmpresaMB.bean.rua}" size="30" />				
+				
+				<p:outputLabel value="Número " />
+				<p:inputText value="#{EmpresaMB.bean.numero}" size="10" />					
+				
+				<p:outputLabel value="Bairro " />
+				<p:inputText value="#{EmpresaMB.bean.bairro}" size="30" />					
+
+				<p:outputLabel value="CEP " />
+				<p:inputMask id="phone4" value="#{EmpresaMB.bean.cep}" size="10" mask="99.999-999"/>
+
+				<p:outputLabel value="Cidade " />
+				<p:inputText value="#{EmpresaMB.bean.cidade}" size="30" />						
+				
+				<p:outputLabel value="UF " />
+				<p:inputText value="#{EmpresaMB.bean.uf}" size="5" />
+
+				<p:outputLabel value="Complemento " />
+				<p:inputText value="#{EmpresaMB.bean.complemento}" size="30" />				
+				
+				<p:outputLabel value="Curso 01" />
+				<p:selectOneMenu value="#{EmpresaMB.bean.id_curso1}">
+					<f:selectItem itemLabel="01 Gestão de TI" itemValue="01" />
+					<f:selectItem itemLabel="02 Gastronomia" itemValue="02" />
+					<f:selectItem itemLabel="03 Estética" itemValue="03" />
+				</p:selectOneMenu>
+
+				<p:outputLabel value="Curso 02" />
+				<p:selectOneMenu value="#{EmpresaMB.bean.id_curso2}">
+					<f:selectItem itemLabel="01 Gestão de TI" itemValue="01" />
+					<f:selectItem itemLabel="02 Gastronomia" itemValue="02" />
+					<f:selectItem itemLabel="03 Estética" itemValue="03" />
+				</p:selectOneMenu>
+
+				<p:outputLabel value="Curso 03" />
+				<p:selectOneMenu value="#{EmpresaMB.bean.id_curso3}">
+					<f:selectItem itemLabel="01 Gestão de TI" itemValue="01" />
+					<f:selectItem itemLabel="02 Gastronomia" itemValue="02" />
+					<f:selectItem itemLabel="03 Estética" itemValue="03" />
+				</p:selectOneMenu>
+				
+			</h:panelGrid>
+
+			<h:panelGrid columns="4" layout="grid">
+
+				<p:commandButton value="Cadastrar"
+					rendered="#{!EmpresaMB.exibirBtnAlterar}" action="#{EmpresaMB.gravar}"
+					update="cad_empresa" />
+
+				<p:commandButton value="Salvar"
+					rendered="#{EmpresaMB.exibirBtnAlterar}"
+					action="#{EmpresaMB.atualizar}" update="cad_empresa" />
+
+				<p:commandButton value="Excluir"
+					rendered="#{EmpresaMB.exibirBtnAlterar}" action="#{EmpresaMB.excluir}"
+					update="cad_empresa" />
+
+				<p:commandButton value="Cancelar"
+					rendered="#{EmpresaMB.exibirBtnAlterar}" action="#{EmpresaMB.cancelar}"
+					update="cad_empresa" />
+
+			</h:panelGrid>
+
+			<p:dataTable var="c" value="#{EmpresaMB.list}" selectionMode="single"
+				selection="#{EmpresaMB.alterar}" rowKey="#{c.id}">
+
+				<p:ajax event="rowSelect" listener="#{EmpresaMB.preparaUpdate}"
+					update="cad_empresa" />
+
+				<p:column style="width:60px" headerText="Nome Fantasia">#{c.fantasia}</p:column>
+				<p:column style="width:60px" headerText="Contato">#{c.contato1}</p:column>
+				<p:column style="width:25px" headerText="Telefone Fixo">#{c.telefone1}</p:column>
+				<p:column style="width:25px" headerText="Telefone Celular">#{c.telefone2}</p:column>
+				<p:column style="width:40px" headerText="E-Mail">#{c.email}</p:column>
+				<p:column style="width:20px" headerText="Cidade">#{c.cidade}</p:column>
+				<p:column style="width:0.1px" headerText="UF">#{c.uf}</p:column>
+
+			</p:dataTable>
+
+		</p:panel>
+
+	</h:form>
+</ui:decorate>

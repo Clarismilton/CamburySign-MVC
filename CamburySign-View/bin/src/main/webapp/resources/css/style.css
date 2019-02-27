@@ -1,0 +1,12 @@
+@charset "ISO-8859-1";
+
+*{ margin:0; padding:0; border:0; }
+
+body {
+	background: url(../images/fundo-azul.jpg) top center;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-size: cover;
+}
+
+<!-- Author Clarismilton Soares de Morais -->

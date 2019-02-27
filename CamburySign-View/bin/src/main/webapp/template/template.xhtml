@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+	<title>CamburySign</title>
+	<h:outputStylesheet library="css" name="style.css" />
+</h:head>
+<h:body>
+	<h:form id="template">
+		<p:growl id="growl" showDetail="true" sticky="false" life="5000" />
+		<p:menubar>
+			<p:submenu label="Arquivo">
+				<p:menuitem value="Aluno()" url=" " />
+				<p:menuitem value="Avaliador" url="avaliador.jsf" />
+				<p:menuitem value="Concurso" url="concurso.jsf" />
+				<p:menuitem value="Curso" url="curso.jsf" />
+				<p:menuitem value="Disciplina()" url=" " />
+				<p:menuitem value="Empresa" url="empresa.jsf" />
+				<p:menuitem value="Escola()" url=" " />
+				<p:menuitem value="Grupo" url="grupo.jsf" />
+				<p:menuitem value="Professor" url="professor.jsf" />
+				<p:menuitem value="Usuário" url="usuario.jsf" />
+			</p:submenu>
+			<p:submenu label="Configurações">
+				<p:menuitem value="Sistema" />
+				<p:menuitem value="Outras" />
+			</p:submenu>
+			<p:submenu label="Sobre">
+				<p:menuitem value="Desenvolvedores" />
+				<p:menuitem value="Sistema" />
+			</p:submenu>
+			<p:submenu label="Finaliza">
+				<p:menuitem value="Sair" icon="ui-icon-power" />
+			</p:submenu>
+			<p:menuitem value="Início" url="index.jsf" />
+			<p:menuitem value="........................Encerrar Sessão"
+				url="/logout" />
+		</p:menubar>
+		<p:dock position="bottom">
+			<p:menuitem value="Cambury" url="http://cambury.br/"
+				icon="/images/cambury.png" target="_blank" />
+			<p:menuitem value="Início" url="index.jsf" icon="/images/home.png" />
+			<p:menuitem value="Músicas" url="http://radio.tce.go.gov.br/"
+				icon="/images/musicas.png" target="_blank" />
+			<p:menuitem value="Vídeos"
+				url="https://www.youtube.com/user/tvcambury"
+				icon="/images/videos.png" target="_blank" />
+			<p:menuitem value="Sgestões"
+				url="http://cambury.br/institucional/ouvidoria/"
+				icon="/images/sugestoes.png" target="_blank" />
+		</p:dock>
+	</h:form>
+	<ui:insert></ui:insert>
+</h:body>
+</html>
